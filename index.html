@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      #gamescreen {
+        border: 1px solid #efefef;
+        /* background-image: url("display/background/wide-view-space.jpg"); */
+        background-size: cover;
+      }
+      #right {
+        display: none;
+      }
+      #left {
+        display: none;
+      }
+
+      #neutral {
+        display: none;
+      }
+
+      #neutral_blink {
+        display: none;
+      }
+      #bg {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div className="page-container">
+      <img id="bg" src="display/background/outerspace2.jpg" />
+      <img
+        id="right"
+        src="display/pandas/Characters Sprite Sheets/Jump/Jump_Right (4).png"
+      />
+
+      <img
+        id="left"
+        src="display/pandas/Characters Sprite Sheets/Jump/Jump_Left (4).png"
+      />
+      <img
+        id="neutral"
+        src="display/pandas/Characters Sprite Sheets/Idle/Idle_Front (2).png"
+      />
+      <img
+        id="neutral_blink"
+        src="display/pandas/Characters Sprite Sheets/Idle/Idle_Front (4).png"
+      />
+      <canvas id="gamescreen" width="800" height="600"></canvas>
+    </div>
+    <div id="main">Space Panda Game</div>
+
+    <script src="bundle.js"></script>
+  </body>
+</html>
