@@ -2,10 +2,10 @@ class Player {
   constructor(game_width, game_height) {
     this.gameWidth = game_width;
     this.gameHeight = game_height;
+    this.frameIdx = 0;
 
-    this.width = 100;
-    this.height = 100;
-
+    this.width = 80;
+    this.height = 80;
     this.images = {
       left: document.getElementById("left"),
       right: document.getElementById("right"),
@@ -13,7 +13,7 @@ class Player {
       neutral_blink: document.getElementById("neutral_blink")
     };
 
-    this.acc = 3;
+    this.acc = 2;
 
     this.x_velocity = 0;
     this.y_velocity = 0;
@@ -25,8 +25,8 @@ class Player {
     this.moving = false;
 
     this.position = {
-      x: game_width / 2 - this.width / 2, // 250
-      y: game_height - this.height - 1 // 490
+      x: game_width / 2 - this.width / 2,
+      y: game_height - this.height - 1
     };
   }
 
@@ -39,37 +39,41 @@ class Player {
 
   draw(ctx) {
     if (this.keyLeft == 1 || this.keyDown == 1) {
-      ctx.drawImage(
-        this.images.left,
-        this.position.x,
-        this.position.y,
-        100,
-        100
-      );
+      ctx.drawImage(this.images.left, this.position.x, this.position.y, 80, 80);
     } else if (this.keyRight == 1 || this.keyUp == 1) {
       ctx.drawImage(
         this.images.right,
         this.position.x,
         this.position.y,
-        100,
-        100
+        this.width,
+        this.height
       );
     } else {
       ctx.drawImage(
         this.images.neutral,
         this.position.x,
         this.position.y,
-        100,
-        100
+        this.width,
+        this.height
       );
 
-      //   ctx.drawImage(
-      //     this.images.neutral_blink,
-      //     this.position.x,
-      //     this.position.y,
-      //     100,
-      //     100
-      //   );
+      if (this.frameIdx > 90 && this.frameIdx < 100) {
+        ctx.drawImage(
+          this.images.neutral_blink,
+          this.position.x,
+          this.position.y,
+          this.width,
+          this.height
+        );
+      }
+    }
+
+    // ctx.drawImage(this.images.asteroid1, 200, 100, 100, 100);
+
+    this.frameIdx++;
+
+    if (this.frameIdx > 120) {
+      this.frameIdx = 0;
     }
   }
 

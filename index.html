@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Anton|Space+Mono"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
       #gamescreen {
-        border: 1px solid #efefef;
-        /* background-image: url("display/background/wide-view-space.jpg"); */
-        background-size: cover;
+        /* border: 1px solid #efefef; */
+        background-image: url("display/background/stars.jpg");
+        background-size: 60%;
+        height: 90vh;
+        background-position: relative;
+        background-position: 0 0;
+        background-repeat: repeat;
+        animation: animate 10s alternate infinite;
+      }
+      @keyframes animate {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: 100% 0;
+        }
       }
       #right {
         display: none;
@@ -28,32 +51,141 @@
       #bg {
         display: none;
       }
+
+      #astronaut {
+        display: none;
+      }
+      #astronaut2 {
+        display: none;
+      }
+
+      #spaceship {
+        display: none;
+      }
+      #orange-spaceship {
+        display: none;
+      }
+      #asteroid5 {
+        display: none;
+      }
+
+      #coin {
+        display: none;
+      }
+      .wholepage {
+        background-image: url("display/background/stars.jpg");
+        object-fit: cover;
+      }
+
+      html {
+        max-height: 100vh;
+      }
+      .page-container {
+        justify-content: center;
+        display: flex;
+        font-family: "Anton", sans-serif;
+        line-height: 14.7px;
+        letter-spacing: 0.5px;
+      }
+
+      #score {
+        position: relative;
+        width: 50px;
+        height: 100px;
+      }
+
+      .sidebar {
+        width: 250px;
+        height: 100vh;
+        color: orange;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .header {
+        font-family: "Anton", sans-serif;
+        font-size: 40px;
+        text-align: right;
+        margin-right: 2%;
+        color: orange;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #efefef;
+        padding: 7%;
+        border-radius: 8px;
+        height: 20%;
+        justify-content: space-between;
+      }
+      .info a {
+        font-size: 30px;
+        color: orange;
+      }
+
+      .info a:hover {
+        cursor: pointer;
+        color: white;
+      }
     </style>
   </head>
   <body>
-    <div className="page-container">
-      <img id="bg" src="display/background/outerspace2.jpg" />
-      <img
-        id="right"
-        src="display/pandas/Characters Sprite Sheets/Jump/Jump_Right (4).png"
-      />
+    <div class="wholepage">
+      <div class="header" id="main">Space Panda Game</div>
+      <div class="page-container">
+        <div class="sidebar">
+          <div class="score">
+            <span
+              ><h2>Your Score:</h2>
+              <h1 id="score"></h1
+            ></span>
+          </div>
+          <!-- <h4>Stay Connected</h4> -->
+          <div class="info">
+            <a href="https://www.linkedin.com/in/lindamckeithlam">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/lindamckeithlam">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
 
-      <img
-        id="left"
-        src="display/pandas/Characters Sprite Sheets/Jump/Jump_Left (4).png"
-      />
-      <img
-        id="neutral"
-        src="display/pandas/Characters Sprite Sheets/Idle/Idle_Front (2).png"
-      />
-      <img
-        id="neutral_blink"
-        src="display/pandas/Characters Sprite Sheets/Idle/Idle_Front (4).png"
-      />
-      <canvas id="gamescreen" width="800" height="600"></canvas>
+        <img id="bg" src="display/background/stars.gif" />
+        <img
+          id="right"
+          src="display/pandas/Characters Sprite Sheets/Jump/Jump_Right (4).png"
+        />
+
+        <img
+          id="left"
+          src="display/pandas/Characters Sprite Sheets/Jump/Jump_Left (4).png"
+        />
+        <img
+          id="neutral"
+          src="display/pandas/Characters Sprite Sheets/Idle/Idle_Front (2).png"
+        />
+        <img
+          id="neutral_blink"
+          src="display/pandas/Characters Sprite Sheets/Idle/Idle_Front (4).png"
+        />
+
+        <img
+          id="orange-spaceship"
+          src="display/asteroids/orange-spaceship.png"
+        />
+        <img id="astronaut" src="display/asteroids/astronaut.png" />
+        <img id="spaceship" src="display/asteroids/spaceship.png" />
+        <img id="astronaut2" src="display/asteroids/astronaut2.png" />
+        <audio id="collectedcoin" src="sound/collectedcoin.mp3"></audio>
+        <img id="coin" src="display/Coins/favstar.png" />
+        <canvas id="gamescreen" width="800" height="450"></canvas>
+      </div>
+
+      <script src="bundle.js"></script>
     </div>
-    <div id="main">Space Panda Game</div>
-
-    <script src="bundle.js"></script>
   </body>
 </html>
