@@ -23,12 +23,12 @@ export default class Asteroid {
     this.height = 50;
 
     this.frameIdx = 0;
-    this.randX = [10, 100, 200, 100, 180, 190, 450];
-    this.randY = [10, 100, 200, 100, 180, 190, 300];
+    this.randX = [10, 100, 200, 100, 180, 190, 400];
+    this.randY = [10, 100, 200, 100, 180, 190];
 
     this.position = {
-      x: Math.floor(Math.random() * 790) + 10,
-      y: Math.floor(Math.random() * 350) + 5
+      x: Math.floor(Math.random() * 700) + 10,
+      y: Math.floor(Math.random() * 200) + 5
     };
   }
 

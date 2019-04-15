@@ -20,7 +20,7 @@
         /* border: 1px solid #efefef; */
         background-image: url("display/background/stars.jpg");
         background-size: 60%;
-        height: 90vh;
+        height: 80vh;
         background-position: relative;
         background-position: 0 0;
         background-repeat: repeat;
@@ -81,43 +81,46 @@
         max-height: 100vh;
       }
       .page-container {
-        justify-content: center;
+        justify-content: space-between;
         display: flex;
         font-family: "Anton", sans-serif;
         line-height: 14.7px;
         letter-spacing: 0.5px;
+        padding: 2%;
       }
 
       #score {
         position: relative;
-        width: 50px;
+        width: 40px;
         height: 100px;
+      }
+      #score h2 {
+        font-size: 30px;
       }
 
       .sidebar {
         width: 250px;
-        height: 100vh;
+        height: 70vh;
         color: orange;
         display: flex;
         flex-direction: column;
         align-items: center;
+        border: 1px solid yellow;
+        border-radius: 8px;
       }
 
       .header {
         font-family: "Anton", sans-serif;
         font-size: 40px;
         text-align: right;
-        margin-right: 2%;
         color: orange;
       }
 
       .info {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        border: 1px solid #efefef;
+        align-items: space-between;
         padding: 7%;
-        border-radius: 8px;
         height: 20%;
         justify-content: space-between;
       }
@@ -140,10 +143,15 @@
           <div class="score">
             <span
               ><h2>Your Score:</h2>
-              <h1 id="score"></h1
+              <h2 id="score"></h2
             ></span>
           </div>
-          <!-- <h4>Stay Connected</h4> -->
+
+          <div class="timerheader">
+            <h2>Time Left:</h2>
+            <h2 id="timer"></h2>
+          </div>
+
           <div class="info">
             <a href="https://www.linkedin.com/in/lindamckeithlam">
               <i class="fab fa-linkedin-in"></i>
@@ -173,16 +181,13 @@
           src="display/pandas/Characters Sprite Sheets/Idle/Idle_Front (4).png"
         />
 
-        <img
-          id="orange-spaceship"
-          src="display/asteroids/orange-spaceship.png"
-        />
-        <img id="astronaut" src="display/asteroids/astronaut.png" />
-        <img id="spaceship" src="display/asteroids/spaceship.png" />
-        <img id="astronaut2" src="display/asteroids/astronaut2.png" />
+        <img id="orange-spaceship" src="display/asteroids/mars.png" />
+        <img id="astronaut" src="display/asteroids/jupiter.png" />
+        <img id="spaceship" src="display/asteroids/earth.png" />
+        <img id="astronaut2" src="display/asteroids/waterplanet.png" />
         <audio id="collectedcoin" src="sound/collectedcoin.mp3"></audio>
-        <img id="coin" src="display/Coins/favstar.png" />
-        <canvas id="gamescreen" width="800" height="450"></canvas>
+        <img id="coin" src="display/Coins/satellite2.png" />
+        <canvas id="gamescreen" width="800" height="395"></canvas>
       </div>
 
       <script src="bundle.js"></script>

@@ -86,6 +86,48 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./score/timer.js":
+/*!************************!*\
+  !*** ./score/timer.js ***!
+  \************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return timer; });
+var timerClock = document.getElementById("timer");
+function timer(seconds) {
+  var countdown = setInterval(function () {
+    seconds--;
+
+    if (seconds < 0) {
+      clearInterval(countdown);
+      alert("times up!");
+      return;
+    }
+
+    displayTimeLeft(seconds);
+  }, 1000);
+}
+
+function displayTimeLeft(seconds) {
+  var sec = seconds % 60;
+  var display = "00:".concat(sec);
+
+  if (sec < 10) {
+    display = "00:0".concat(sec);
+  }
+
+  if (!timerClock.innerHTML) {
+    timerClock.innerHTML = "00:00";
+  } else {
+    timerClock.innerHTML = display;
+  }
+}
+
+/***/ }),
+
 /***/ "./src/asteroid.js":
 /*!*************************!*\
   !*** ./src/asteroid.js ***!
@@ -126,11 +168,11 @@ function () {
     this.width = 50;
     this.height = 50;
     this.frameIdx = 0;
-    this.randX = [10, 100, 200, 100, 180, 190, 450];
-    this.randY = [10, 100, 200, 100, 180, 190, 300];
+    this.randX = [10, 100, 200, 100, 180, 190, 400];
+    this.randY = [10, 100, 200, 100, 180, 190];
     this.position = {
-      x: Math.floor(Math.random() * 790) + 10,
-      y: Math.floor(Math.random() * 350) + 5
+      x: Math.floor(Math.random() * 700) + 10,
+      y: Math.floor(Math.random() * 200) + 5
     };
   }
 
@@ -233,12 +275,12 @@ function () {
     this.deltaY = 0;
     this.maxDeltaY = 1;
     this.deltaX = 0.5;
-    this.width = 30;
-    this.height = 30;
+    this.width = 80;
+    this.height = 80;
     this.frameIdx = 0;
     this.rand = [300, 100, 200, 100, 180, 190];
     this.position = {
-      x: Math.floor(Math.random() * 790) + 10,
+      x: Math.floor(Math.random() * 700) + 10,
       y: this.rand[Math.floor(Math.random() * this.rand.length)]
     };
     this.status = true;
@@ -336,6 +378,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _moves_collision__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./moves/collision */ "./src/moves/collision.js");
 /* harmony import */ var _asteroid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./asteroid */ "./src/asteroid.js");
 /* harmony import */ var _coins__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./coins */ "./src/coins.js");
+/* harmony import */ var _score_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../score/timer */ "./score/timer.js");
+
 
 
 
@@ -409,6 +453,7 @@ function gameLoop(timestamp) {
   requestAnimationFrame(gameLoop);
 }
 
+Object(_score_timer__WEBPACK_IMPORTED_MODULE_5__["default"])(30);
 requestAnimationFrame(gameLoop);
 gameLoop(requestAnimationFrame(gameLoop));
 
@@ -523,8 +568,8 @@ function () {
       if (this.position.x + this.width > this.gameWidth) // if player moves too much right
         this.position.x = this.gameWidth - this.width; // if player moves too much bottom
 
-      if (this.position.y > this.gameHeight - 20 - this.height) {
-        this.position.y = this.gameHeight - 20 - this.height;
+      if (this.position.y > this.gameHeight - 60 - this.height) {
+        this.position.y = this.gameHeight - 60 - this.height;
         this.y_velocity = -this.y_velocity; // if player moves too much top
       } else if (this.position.y + this.y_velocity < 0) {
         this.position.y = 0;

@@ -3,6 +3,7 @@ import Player from "./player";
 import * as Collisions from "./moves/collision";
 import Asteroid from "./asteroid";
 import Coin from "./coins";
+import timer from "../score/timer";
 let canvas = document.getElementById("gamescreen");
 // let image = document.getElementById("asteroid1");
 let ctx = canvas.getContext("2d");
@@ -87,5 +88,6 @@ function gameLoop(timestamp) {
   requestAnimationFrame(gameLoop);
 }
 
+timer(30);
 requestAnimationFrame(gameLoop);
 gameLoop(requestAnimationFrame(gameLoop));
