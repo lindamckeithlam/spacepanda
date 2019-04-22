@@ -12,8 +12,8 @@ class Player {
       neutral: document.getElementById("neutral"),
       neutral_blink: document.getElementById("neutral_blink")
     };
-
-    this.acc = 2;
+    this.colliding = false;
+    this.acc = 5;
 
     this.x_velocity = 0;
     this.y_velocity = 0;
@@ -23,7 +23,7 @@ class Player {
     this.keyUp = 0;
     this.keyDown = 0;
     this.moving = false;
-
+    this.lives = 3;
     this.position = {
       x: game_width / 2 - this.width / 2,
       y: game_height - this.height - 1
@@ -39,7 +39,13 @@ class Player {
 
   draw(ctx) {
     if (this.keyLeft == 1 || this.keyDown == 1) {
-      ctx.drawImage(this.images.left, this.position.x, this.position.y, 80, 80);
+      ctx.drawImage(
+        this.images.left,
+        this.position.x,
+        this.position.y,
+        this.width,
+        this.height
+      );
     } else if (this.keyRight == 1 || this.keyUp == 1) {
       ctx.drawImage(
         this.images.right,
@@ -68,13 +74,25 @@ class Player {
       }
     }
 
-    // ctx.drawImage(this.images.asteroid1, 200, 100, 100, 100);
-
     this.frameIdx++;
 
     if (this.frameIdx > 120) {
       this.frameIdx = 0;
     }
+  }
+
+  repel(obj) {
+    this.x_velocity = -2 * this.x_velocity;
+    this.y_velocity = -2 * this.y_velocity;
+    obj.deltaX = -2 * obj.deltaX;
+    obj.deltaY = -2 * obj.deltaY;
+    this.colliding = true;
+  }
+
+  changeSize() {
+    this.width -= 8;
+    this.height -= 8;
+    this.lives -= 0;
   }
 
   update(deltaTime) {

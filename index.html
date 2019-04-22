@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Shadows+Into+Light"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
     />
     <link
       href="https://fonts.googleapis.com/css?family=Anton|Space+Mono"
@@ -14,13 +23,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Space Panda</title>
     <style>
       #gamescreen {
         /* border: 1px solid #efefef; */
         background-image: url("display/background/stars.jpg");
         background-size: 60%;
         height: 80vh;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 grey;
         background-position: relative;
         background-position: 0 0;
         background-repeat: repeat;
@@ -73,47 +83,50 @@
         display: none;
       }
       .wholepage {
-        background-image: url("display/background/stars.jpg");
-        object-fit: cover;
+        /* background-image: url("display/background/bgbig.jpg"); */
+        background-color: black;
+        /* object-fit: cover; */
+        height: 100vh;
       }
 
       html {
         max-height: 100vh;
       }
       .page-container {
-        justify-content: space-between;
+        justify-content: space-evenly;
         display: flex;
-        font-family: "Anton", sans-serif;
-        line-height: 14.7px;
-        letter-spacing: 0.5px;
-        padding: 2%;
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        line-height: 1.35;
+        letter-spacing: -0.1px;
       }
 
       #score {
         position: relative;
-        width: 40px;
+        width: 20px;
         height: 100px;
-      }
-      #score h2 {
-        font-size: 30px;
       }
 
       .sidebar {
         width: 250px;
-        height: 70vh;
-        color: orange;
+        height: 80vh;
+        color: white;
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: 1px solid yellow;
-        border-radius: 8px;
+        background-image: url("./display/background/starsmap3.png");
+        object-fit: cover;
+        /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 grey; */
+        border: 0.5px double white;
+        border-style: double;
+        /* border-radius: 1%; */
       }
 
       .header {
-        font-family: "Anton", sans-serif;
+        font-family: "Shadows Into Light", cursive;
         font-size: 40px;
-        text-align: right;
-        color: orange;
+        text-align: center;
+        color: white;
       }
 
       .info {
@@ -123,15 +136,42 @@
         padding: 7%;
         height: 20%;
         justify-content: space-between;
+        position: relative;
       }
-      .info a {
-        font-size: 30px;
-        color: orange;
+      .info i {
+        font-size: 20px;
+        color: white;
       }
 
       .info a:hover {
         cursor: pointer;
         color: white;
+      }
+      .instructions {
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .modal-bg {
+        display: none;
+        height: 100vh;
+        width: 100vw;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.425);
+      }
+
+      .modal {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        height: fit-content;
+        width: 30%;
+        color: black;
       }
     </style>
   </head>
@@ -140,11 +180,40 @@
       <div class="header" id="main">Space Panda Game</div>
       <div class="page-container">
         <div class="sidebar">
+          <div class="instructions">
+            Mission: Smash as many satellites as you can by bouncing into your
+            teammates. <br />
+            Caveat: Do not bump into the satellites yourself.
+          </div>
           <div class="score">
-            <span
-              ><h2>Your Score:</h2>
-              <h2 id="score"></h2
-            ></span>
+            <h2>Your Score:</h2>
+            <h2 id="score"></h2>
+          </div>
+
+          <div class="modal-bg" id="modalbgid"></div>
+          <div class="modal" id="modaldisplayid">
+            <ul>
+              <h2>High Scores</h2>
+              <li id="currenthighscore"></li>
+              <li id="highscore"></li>
+              <li id="highscore"></li>
+            </ul>
+            <script>
+              function submitScore() {
+                document.getElementById('currenthighscore').innerHTML = document.getElementById('currentscore').value
+              }
+
+              function restart() {
+                location.reload();
+              }
+            </script>
+
+            
+            <label>Enter Your Name</label>
+            <input type='text' id='currentscore'></input>
+            <input type='submit' value='submit' onclick='submitScore()'></input>
+            <br>
+            <button onclick='restart()'>Restart Game</button>
           </div>
 
           <div class="timerheader">
@@ -153,6 +222,9 @@
           </div>
 
           <div class="info">
+            <i class="fas fa-volume-mute" id="volume-down"></i>
+            <i class="fas fa-volume-up" id="volume-up"></i> <br />
+
             <a href="https://www.linkedin.com/in/lindamckeithlam">
               <i class="fab fa-linkedin-in"></i>
             </a>
@@ -186,7 +258,10 @@
         <img id="spaceship" src="display/asteroids/earth.png" />
         <img id="astronaut2" src="display/asteroids/waterplanet.png" />
         <audio id="collectedcoin" src="sound/collectedcoin.mp3"></audio>
+        <audio id="shrinking" src="sound/supermario//PowerDown.wav"></audio>
+
         <img id="coin" src="display/Coins/satellite2.png" />
+
         <canvas id="gamescreen" width="800" height="395"></canvas>
       </div>
 

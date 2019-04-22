@@ -6,7 +6,9 @@ export default function timer(seconds) {
     if (seconds < 0) {
       clearInterval(countdown);
       alert("times up!");
-      return;
+      document.getElementById("modaldisplayid").style.display = "block";
+      document.getElementById("modalbgid").style.display = "block";
+
     }
     displayTimeLeft(seconds);
   }, 1000);

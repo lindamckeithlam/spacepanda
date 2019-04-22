@@ -1,13 +1,22 @@
-import InputHandler from "./keyboard_input";
+import InputHandler from "./playerKeyboardInput";
 import Player from "./player";
 import * as Collisions from "./moves/collision";
 import Asteroid from "./asteroid";
 import Coin from "./coins";
 import timer from "../score/timer";
+import { config } from "../score/score";
+import "firebase/app";
+import "firebase/database";
+
+const currentUser = document.getElementById("highscore1");
+
+// Creating a canvas //
 let canvas = document.getElementById("gamescreen");
-// let image = document.getElementById("asteroid1");
 let ctx = canvas.getContext("2d");
+
+// Creating a Score Board
 let score = 0;
+let highScore = 0;
 
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 450;
@@ -35,17 +44,34 @@ coin.draw(ctx);
 
 // Creating coin sound
 let coinSound = document.getElementById("collectedcoin");
+let shrinkingSound = document.getElementById("shrinking");
+let mute = document.getElementById("volume-down");
+let unmute = document.getElementById("volume-up");
+
+mute.addEventListener("click", () => {
+  coinSound.muted = true;
+  shrinkingSound.muted = true;
+  mute.style.color = "red";
+  unmute.style.color = "white";
+});
+
+unmute.addEventListener("click", () => {
+  coinSound.muted = false;
+  shrinkingSound.muted = false;
+  mute.style.color = "white";
+  unmute.style.color = "green";
+});
 
 // Looping the visual //
 
 let start = null;
-
 let items = [coin, spaceobj1, spaceobj2, spaceobj3];
 
 function gameLoop(timestamp) {
   if (start === null) {
     start = timestamp;
   }
+  //   console.log(timestamp);
 
   let progress = timestamp - start;
 
@@ -64,30 +90,55 @@ function gameLoop(timestamp) {
         function collectCoin() {
           coin = new Coin(GAME_WIDTH, GAME_HEIGHT);
           score += 1;
-          //   coinSound.play();
+
+          coinSound.play();
+
           items.push(coin);
           document.getElementById("score").innerHTML = score;
         }
         setTimeout(collectCoin, 400);
+      } else if (Collisions.isColliding(playerOne, item)) {
+        if (!playerOne.colliding) {
+          score -= 1;
+          document.getElementById("score").innerHTML = score;
+        }
+        playerOne.repel(item);
+        playerOne.colliding = false;
+        playerOne.changeSize();
+
+        shrinkingSound.play();
       }
     } else {
       item.update();
+      if (Collisions.isColliding(playerOne, item)) {
+        item.deltaY *= Math.sign(playerOne.y_velocity);
+        item.deltaX *= Math.sign(playerOne.x_velocity);
+        item.deltaX += playerOne.x_velocity;
+        item.deltaY += playerOne.y_velocity;
+      }
     }
-    if (Collisions.isColliding(playerOne, item)) {
-      item.deltaY *= Math.sign(playerOne.y_velocity);
-      item.deltaX *= Math.sign(playerOne.x_velocity);
-      item.deltaX += playerOne.x_velocity;
 
-      item.deltaY += playerOne.y_velocity;
-    }
+    // if (document.getElementById("timer").innerHTML === "00:00") {
+    //   console.log("here");
+    //   cancelAnimationFrame(req);
+    // }
 
     item.draw(ctx);
   });
+
   playerOne.draw(ctx);
   playerOne.update(progress);
-  requestAnimationFrame(gameLoop);
+  const req = requestAnimationFrame(gameLoop);
 }
 
-timer(30);
-requestAnimationFrame(gameLoop);
+var scoresRef = firebase.database().ref("scores");
+
+scoresRef.orderByValue().on("value", function(snapshot) {
+  snapshot.forEach(function(data) {
+    document.getElementById("highscore").innerHTML =
+      data.key + " : " + data.val();
+  });
+});
+
+timer(10);
 gameLoop(requestAnimationFrame(gameLoop));
