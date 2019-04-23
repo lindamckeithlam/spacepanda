@@ -71,7 +71,6 @@ function gameLoop(timestamp) {
   if (start === null) {
     start = timestamp;
   }
-  //   console.log(timestamp);
 
   let progress = timestamp - start;
 
@@ -98,7 +97,7 @@ function gameLoop(timestamp) {
         }
         setTimeout(collectCoin, 400);
       } else if (Collisions.isColliding(playerOne, item)) {
-        if (!playerOne.colliding) {
+        if (!playerOne.colliding && score > 0) {
           score -= 1;
           document.getElementById("score").innerHTML = score;
         }
@@ -133,12 +132,21 @@ function gameLoop(timestamp) {
 
 var scoresRef = firebase.database().ref("scores");
 
-scoresRef.orderByValue().on("value", function(snapshot) {
-  snapshot.forEach(function(data) {
-    document.getElementById("highscore").innerHTML =
-      data.key + " : " + data.val();
+let ul = document.getElementById("scoreboard");
+scoresRef.orderByValue().once("value", function(snapshot) {
+  let i = 0;
+  let scoreList = Object.values(snapshot.val()).sort((score1, score2) => {
+    return score2.score - score1.score;
+  });
+  scoreList.forEach(function(data) {
+    if (i < 3) {
+      let li = document.createElement("li");
+      li.innerHTML = data.name + " " + `${data.score}`;
+      ul.appendChild(li);
+    }
+    i++;
   });
 });
 
-timer(10);
+timer(5);
 gameLoop(requestAnimationFrame(gameLoop));

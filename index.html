@@ -84,7 +84,7 @@
       }
       .wholepage {
         /* background-image: url("display/background/bgbig.jpg"); */
-        background-color: black;
+        background-color: rgb(18, 18, 39);
         /* object-fit: cover; */
         height: 100vh;
       }
@@ -110,7 +110,7 @@
       .sidebar {
         width: 250px;
         height: 80vh;
-        color: white;
+        color:whitesmoke;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -123,24 +123,30 @@
       }
 
       .header {
-        font-family: "Shadows Into Light", cursive;
+        /* font-family: "Shadows Into Light", cursive;
+         */
+        font-family: "Source Sans Pro"; 
         font-size: 40px;
-        text-align: center;
-        color: white;
+        text-align: right;
+        color: rgba(255, 255, 255, 0.788);
+        padding: 0.5%;
+        margin-right: 1%; 
+        
       }
 
       .info {
         display: flex;
-        flex-direction: column;
-        align-items: space-between;
+        /* flex-direction: row; */
+        justify-content: space-evenly;
         padding: 7%;
         height: 20%;
-        justify-content: space-between;
+        /* justify-content: space-between; */
         position: relative;
       }
       .info i {
         font-size: 20px;
         color: white;
+        margin: 5px;
       }
 
       .info a:hover {
@@ -150,6 +156,18 @@
       .instructions {
         text-align: center;
         font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.1); 
+        color: white; 
+        width: 92%; 
+        padding: 5%; 
+        font-weight: bold; 
+        margin-top: 2%; 
+        border-radius: 3px; 
+      }
+      .instructions label {
+        background-color:  rgb(84, 84, 160);
+        padding: 2%; 
+        border-radius: 3px; 
       }
 
       .modal-bg {
@@ -170,20 +188,118 @@
         transform: translate(-50%, -50%);
         background-color: white;
         height: fit-content;
-        width: 30%;
-        color: black;
+        width: 40%;
+        color: grey;
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px; 
+        border-radius: 2px; 
       }
+
+      input {
+        width: 85%;
+        height: 30px; 
+        border-radius: 2.5px; 
+        font-family: "Open Sans", sans-serif; 
+        /* margin-bottom: 1.5%;  */
+        border: 1px solid #efefef; 
+        font-size: 13px; 
+      }
+      input:focus {
+        outline-color: rgb(84, 84, 160);
+      }
+      .user-info {
+        display: flex; 
+        flex-direction: column; 
+        align-items: center;
+      }
+      .user-info li {
+        list-style: none; 
+        
+      }
+      button {
+        background-color: rgb(84, 84, 160); 
+        color: white; 
+        border-radius: 4px; 
+        font-size: 15px; 
+        margin: 3% 2%;
+        padding: 1%;  
+        width: 25%; 
+        overflow-x: visible
+      }
+
+      button:hover {
+        cursor: pointer;
+        color:  white;
+        background-color: rgb(64, 64, 105); 
+
+      }
+      .user-info h2 {
+        color:  rgba(84, 84, 160, 0.877); 
+        margin: 0%; 
+        /* color: white;  */
+        /* font-weight: 500 */
+      }
+
+      .scoreboard-heading {
+        margin-top: 2%; 
+        text-align: center; 
+    
+      }
+  
+      .scoreboard {
+        width: 93%; 
+      }
+      .score {
+        width: 92%; 
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white; 
+        padding: 2%; 
+        margin-top: 2%; 
+        min-height: 10%; 
+        border-radius: 3px; 
+      }
+      .score h2 {
+        font-size: 14px;
+        font-weight: bold; 
+      }
+ 
+
+      .timerheader {
+        width: 92%; 
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white; 
+        padding: 2%; 
+        margin-top: 2%; 
+        border-radius: 3px; 
+        min-height: 14%; 
+      }
+
+      .timerheader h2 {
+        font-size: 14px;
+        font-weight: bold; 
+      }
+      .button-box {
+        display: flex; 
+        justify-content: center; 
+        width: 90%; 
+        /* position: absolute;  */
+      }
+
     </style>
   </head>
   <body>
     <div class="wholepage">
-      <div class="header" id="main">Space Panda Game</div>
+      <div class="header" id="main">Space Panda</div>
       <div class="page-container">
         <div class="sidebar">
           <div class="instructions">
-            Mission: Smash as many satellites as you can by bouncing into your
-            teammates. <br />
-            Caveat: Do not bump into the satellites yourself.
+            <label>Mission:</label>
+            <p>Smash as many satellites as you can by bouncing into your
+            teammates.</p>
+            <label>Caveat: </label>
+            <p>Do not touch the satellites yourself.</p>
           </div>
           <div class="score">
             <h2>Your Score:</h2>
@@ -192,28 +308,28 @@
 
           <div class="modal-bg" id="modalbgid"></div>
           <div class="modal" id="modaldisplayid">
-            <ul>
-              <h2>High Scores</h2>
-              <li id="currenthighscore"></li>
-              <li id="highscore"></li>
-              <li id="highscore"></li>
+            <div class='user-info'>
+              <div class='scoreboard-heading'>
+              <h2>Great game!</h2>
+              <h2>Here are some of our top scorers</h2>
+              </div>
+            <ul class='scoreboard' id='scoreboard'>
             </ul>
             <script>
-              function submitScore() {
-                document.getElementById('currenthighscore').innerHTML = document.getElementById('currentscore').value
-              }
+           
 
               function restart() {
                 location.reload();
               }
             </script>
 
-            
-            <label>Enter Your Name</label>
-            <input type='text' id='currentscore'></input>
-            <input type='submit' value='submit' onclick='submitScore()'></input>
-            <br>
+        
+            <input type='text' id='currentscore' placeholder="Enter your name"></input>
+           <span class='button-box'> 
+             <button id='submitbutton' value='submit'>Submit</button>
             <button onclick='restart()'>Restart Game</button>
+          </span>
+            </div>
           </div>
 
           <div class="timerheader">

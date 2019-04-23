@@ -22695,18 +22695,30 @@ firebase.initializeApp(config);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return timer; });
+/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ "./node_modules/firebase/app/dist/index.cjs.js");
+/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(firebase_app__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var firebase_database__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/database */ "./node_modules/firebase/database/dist/index.esm.js");
+
+
 var timerClock = document.getElementById("timer");
+var submitButton = document.getElementById("submitbutton");
 function timer(seconds) {
   var countdown = setInterval(function () {
     seconds--;
 
     if (seconds < 0) {
-      clearInterval(countdown);
-      alert("times up!");
+      clearInterval(countdown); // alert("times up!");
+
       document.getElementById("modaldisplayid").style.display = "block";
       document.getElementById("modalbgid").style.display = "block";
-
-      if (document.getElementById("score").innerHTML === 0) {}
+      var scoresRef = firebase.database().ref("scores");
+      submitButton.addEventListener("click", function () {
+        var newScore = {
+          name: document.getElementById("currentscore").value,
+          score: Number(document.getElementById("score").innerHTML)
+        };
+        scoresRef.push(newScore);
+      });
     }
 
     displayTimeLeft(seconds);
@@ -22981,8 +22993,7 @@ var items = [coin, spaceobj1, spaceobj2, spaceobj3];
 function gameLoop(timestamp) {
   if (start === null) {
     start = timestamp;
-  } //   console.log(timestamp);
-
+  }
 
   var progress = timestamp - start;
   if (!progress) return;
@@ -23001,7 +23012,7 @@ function gameLoop(timestamp) {
         items = items.slice(0, idx).concat(items.slice(idx + 1));
         setTimeout(collectCoin, 400);
       } else if (_moves_collision__WEBPACK_IMPORTED_MODULE_2__["isColliding"](playerOne, item)) {
-        if (!playerOne.colliding) {
+        if (!playerOne.colliding && score > 0) {
           score -= 1;
           document.getElementById("score").innerHTML = score;
         }
@@ -23034,12 +23045,23 @@ function gameLoop(timestamp) {
 }
 
 var scoresRef = firebase.database().ref("scores");
-scoresRef.orderByValue().on("value", function (snapshot) {
-  snapshot.forEach(function (data) {
-    document.getElementById("highscore").innerHTML = data.key + " : " + data.val();
+var ul = document.getElementById("scoreboard");
+scoresRef.orderByValue().once("value", function (snapshot) {
+  var i = 0;
+  var scoreList = Object.values(snapshot.val()).sort(function (score1, score2) {
+    return score2.score - score1.score;
+  });
+  scoreList.forEach(function (data) {
+    if (i < 3) {
+      var li = document.createElement("li");
+      li.innerHTML = data.name + " " + "".concat(data.score);
+      ul.appendChild(li);
+    }
+
+    i++;
   });
 });
-Object(_score_timer__WEBPACK_IMPORTED_MODULE_5__["default"])(10);
+Object(_score_timer__WEBPACK_IMPORTED_MODULE_5__["default"])(5);
 gameLoop(requestAnimationFrame(gameLoop));
 
 /***/ }),

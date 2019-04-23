@@ -1,14 +1,26 @@
+import "firebase/app";
+import "firebase/database";
+
 const timerClock = document.getElementById("timer");
+const submitButton = document.getElementById("submitbutton");
 
 export default function timer(seconds) {
   let countdown = setInterval(() => {
     seconds--;
     if (seconds < 0) {
       clearInterval(countdown);
-      alert("times up!");
+      // alert("times up!");
       document.getElementById("modaldisplayid").style.display = "block";
       document.getElementById("modalbgid").style.display = "block";
 
+      var scoresRef = firebase.database().ref("scores");
+      submitButton.addEventListener("click", () => {
+        let newScore = {
+          name: document.getElementById("currentscore").value,
+          score: Number(document.getElementById("score").innerHTML)
+        };
+        scoresRef.push(newScore);
+      });
     }
     displayTimeLeft(seconds);
   }, 1000);
