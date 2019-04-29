@@ -148,5 +148,5 @@ scoresRef.orderByValue().once("value", function(snapshot) {
   });
 });
 
-timer(5);
+timer(30);
 gameLoop(requestAnimationFrame(gameLoop));

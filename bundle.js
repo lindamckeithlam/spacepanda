@@ -23061,7 +23061,7 @@ scoresRef.orderByValue().once("value", function (snapshot) {
     i++;
   });
 });
-Object(_score_timer__WEBPACK_IMPORTED_MODULE_5__["default"])(5);
+Object(_score_timer__WEBPACK_IMPORTED_MODULE_5__["default"])(30);
 gameLoop(requestAnimationFrame(gameLoop));
 
 /***/ }),
