@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
     <link
       rel="stylesheet"
@@ -20,6 +21,8 @@
       href="https://fonts.googleapis.com/css?family=Anton|Space+Mono"
       rel="stylesheet"
     />
+    <link href="/panda-2-favicon.ico" rel="icon" type="image/x-icon" />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -316,8 +319,16 @@
             <ul class='scoreboard' id='scoreboard'>
             </ul>
             <script>
-           
+              function alert_user(){
+               swal({
+                  title: "Thanks!",
+                  text: "Your score has been recorded.",
+                  icon: "success",
+                  button: "OK",
+                });
+              }
 
+           
               function restart() {
                 location.reload();
               }
@@ -326,7 +337,7 @@
         
             <input type='text' id='currentscore' placeholder="Enter your name"></input>
            <span class='button-box'> 
-             <button id='submitbutton' value='submit'>Submit</button>
+             <button id='submitbutton' onclick='alert_user()'' value='submit'>Submit</button>
             <button onclick='restart()'>Restart Game</button>
           </span>
             </div>
@@ -343,6 +354,10 @@
 
             <a href="https://www.linkedin.com/in/lindamckeithlam">
               <i class="fab fa-linkedin-in"></i>
+            </a>
+
+            <a href="https://angel.co/linda-mckeith-lam">
+              <i class="fab fa-angellist"></i>
             </a>
             <a href="https://github.com/lindamckeithlam">
               <i class="fab fa-github"></i>
