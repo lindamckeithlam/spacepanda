@@ -9,7 +9,7 @@ export default function timer(seconds) {
     seconds--;
     if (seconds < 0) {
       clearInterval(countdown);
-      // alert("times up!");
+
       document.getElementById("modaldisplayid").style.display = "block";
       document.getElementById("modalbgid").style.display = "block";
 

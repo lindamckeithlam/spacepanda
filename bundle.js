@@ -22707,8 +22707,7 @@ function timer(seconds) {
     seconds--;
 
     if (seconds < 0) {
-      clearInterval(countdown); // alert("times up!");
-
+      clearInterval(countdown);
       document.getElementById("modaldisplayid").style.display = "block";
       document.getElementById("modalbgid").style.display = "block";
       var scoresRef = firebase.database().ref("scores");
@@ -22974,14 +22973,17 @@ var coinSound = document.getElementById("collectedcoin");
 var shrinkingSound = document.getElementById("shrinking");
 var mute = document.getElementById("volume-down");
 var unmute = document.getElementById("volume-up");
+var bgMusic = document.getElementById("bgmusic");
 mute.addEventListener("click", function () {
   coinSound.muted = true;
+  bgMusic.muted = true;
   shrinkingSound.muted = true;
   mute.style.color = "red";
   unmute.style.color = "white";
 });
 unmute.addEventListener("click", function () {
   coinSound.muted = false;
+  bgMusic.muted = false;
   shrinkingSound.muted = false;
   mute.style.color = "white";
   unmute.style.color = "green";
@@ -22995,6 +22997,7 @@ function gameLoop(timestamp) {
     start = timestamp;
   }
 
+  bgMusic.play();
   var progress = timestamp - start;
   if (!progress) return;
   ctx.clearRect(0, 0, 800, 450);
@@ -23061,7 +23064,7 @@ scoresRef.orderByValue().once("value", function (snapshot) {
     i++;
   });
 });
-Object(_score_timer__WEBPACK_IMPORTED_MODULE_5__["default"])(30);
+Object(_score_timer__WEBPACK_IMPORTED_MODULE_5__["default"])(45);
 gameLoop(requestAnimationFrame(gameLoop));
 
 /***/ }),

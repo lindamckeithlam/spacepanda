@@ -47,9 +47,11 @@ let coinSound = document.getElementById("collectedcoin");
 let shrinkingSound = document.getElementById("shrinking");
 let mute = document.getElementById("volume-down");
 let unmute = document.getElementById("volume-up");
+let bgMusic = document.getElementById("bgmusic");
 
 mute.addEventListener("click", () => {
   coinSound.muted = true;
+  bgMusic.muted = true;
   shrinkingSound.muted = true;
   mute.style.color = "red";
   unmute.style.color = "white";
@@ -57,6 +59,7 @@ mute.addEventListener("click", () => {
 
 unmute.addEventListener("click", () => {
   coinSound.muted = false;
+  bgMusic.muted = false;
   shrinkingSound.muted = false;
   mute.style.color = "white";
   unmute.style.color = "green";
@@ -71,7 +74,7 @@ function gameLoop(timestamp) {
   if (start === null) {
     start = timestamp;
   }
-
+  bgMusic.play();
   let progress = timestamp - start;
 
   if (!progress) return;
@@ -148,5 +151,5 @@ scoresRef.orderByValue().once("value", function(snapshot) {
   });
 });
 
-timer(30);
+timer(45);
 gameLoop(requestAnimationFrame(gameLoop));
