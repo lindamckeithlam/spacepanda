@@ -13,17 +13,17 @@
 
 ![still](/display/misc/game_still.png "Still Page")
 
-## Walkthrough
+### Walkthrough
 
 Space Panda was designed for a singer player. Comparable to billiard and air hockey, the player's objective is to collide with nearby objects and use it as leverage to score. Scores are determined by how many satellites a player can smash in a span of 45 seconds. If, however, a player accidentally bumps into a satellite, he or she will shrink in size. This appends a layer of difficulity to the game, thus urges the player to move quickly and steadily in order to win points!
 
-## Score Board
+### Score Board
 
 Scores are updated in real time, using Google Firebase, and are only fetched if the player makes it to the top 3 of highest scores.
 
 ![scoreboard](/display/misc/scoreboard.png "Score Page")
 
-## Future Implementations
+### Future Implementations
 
 - Game Pause / Game Continue
 - 3D Rendering
