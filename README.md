@@ -1,8 +1,8 @@
 # README
 
-- [Live](https://lindamckeithlam.github.io/spacepanda/) - an interactive single-player game where you, Panda, will rely on the power of your teammates, the nearby planets, to crash the satellites made by man. Each successful kill is worth one point, but be careful not to touch the satellites yourself.
+- [Space Panda](https://lindamckeithlam.github.io/spacepanda/) - an interactive single-player game where you, Panda, will rely on the power of your teammates, the nearby planets, to crash the satellites made by man. Each successful kill is worth one point, but be careful not to touch the satellites yourself.
 
-![gif](/display/misc/giphy.gif "Gif Page")
+![gif](https://giphy.com/gifs/elaOWHX8Xi84PsUJNO/fullscreen "Gif Page")
 
 ## Features
 
