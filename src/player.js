@@ -114,8 +114,8 @@ class Player {
       this.position.x = this.gameWidth - this.width;
 
     // if player moves too much bottom
-    if (this.position.y > this.gameHeight - 60 - this.height) {
-      this.position.y = this.gameHeight - 60 - this.height;
+    if (this.position.y > this.gameHeight - this.width - this.height) {
+      this.position.y = this.gameHeight - this.width - this.height;
       this.y_velocity = -this.y_velocity;
 
       // if player moves too much top
